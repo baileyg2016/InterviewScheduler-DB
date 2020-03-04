@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-database-test
+  namespace: yellowphone-interviewscheduler-fe
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ceph
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-database-test
+  namespace: yellowphone-interviewscheduler-fe
+  labels:
+    app: mysql-database-test
+spec:
+  containers:
+  - name: mysql-database-test
+    image: bspell20/yellowphone-db
+    stdin: true
+    tty: true
+    volumeMounts:
+    - mountPath: /var/lib/mysql
+      name: mysql-database-test
+      subPath: db
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: yellowphonestoresdata
+  volumes:
+  - name: mysql-database-test
+    persistentVolumeClaim:
+      claimName: mysql-database-test
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-database-test
+  namespace: yellowphone-interviewscheduler-fe
+spec:
+  ports:
+  - name: tcp3306
+    port: 3306
+    protocol: TCP
+    targetPort: 3306
+  selector:
+    app: mysql-database-test
+  type: ClusterIP
