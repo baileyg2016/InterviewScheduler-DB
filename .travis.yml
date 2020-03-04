@@ -1,4 +1,4 @@
-language: python:3
+language: node_js
 os: osx
 services:
   - docker
