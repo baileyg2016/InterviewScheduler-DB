@@ -21,6 +21,8 @@ metadata:
 spec:
   containers:
   - name: mysql-database
+    ports:
+    - containerPort: 3306
     image: mysql
     stdin: true
     tty: true
@@ -49,4 +51,4 @@ spec:
     targetPort: 3306
   selector:
     app: mysql-database
-  type: ClusterIP
+  type: LoadBalancer
