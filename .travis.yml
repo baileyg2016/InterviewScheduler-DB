@@ -7,7 +7,6 @@ install:
   - chmod +x ./kubectl
   - sudo mv ./kubectl /usr/local/bin/kubectl 
 script:
-  - bash scripts/env_vars.sh
 deploy:
   provider: script
   script: bash scripts/deploy.sh 
