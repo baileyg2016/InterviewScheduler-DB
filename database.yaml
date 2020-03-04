@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-database
-  namespace: yellowphone-interviewscheduler-fe
+  namespace: ${KUBECTL_NAMESPACE} 
 spec:
   accessModes:
   - ReadWriteOnce
@@ -15,7 +15,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: mysql-database
-  namespace: yellowphone-interviewscheduler-fe
+  namespace: ${KUBECTL_NAMESPACE}
   labels:
     app: mysql-database
 spec:
@@ -32,7 +32,7 @@ spec:
       subPath: db
     env:
     - name: MYSQL_ROOT_PASSWORD
-      value: yellowphonestoresdata
+      value: ${DATABASE_PASSWORD}
   volumes:
   - name: mysql-database
     persistentVolumeClaim:
@@ -42,7 +42,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql-database
-  namespace: yellowphone-interviewscheduler-fe
+  namespace: ${DATABASE_PASSWORD}
 spec:
   ports:
   - name: tcp3306

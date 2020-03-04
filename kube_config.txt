@@ -1,0 +1,19 @@
+apiVersion: v1
+clusters:
+- cluster:
+    server: ${KUBECTL_SERVER}
+  name: ${KUBECTL_CLUSTER}
+contexts:
+- context:
+    cluster: ${KUBECTL_CLUSTER}
+    namespace: ${KUBECTL_NAMESPACE}
+    user: ${KUBECTL_USERNAME}
+  name: testing
+current-context: ${KUBECTL_CLUSTER}
+kind: Config
+preferences: {}
+users:
+- name: ${KUBECTL_USERNAME}
+  user:
+    token: ${KUBECTL_TOKEN}
+

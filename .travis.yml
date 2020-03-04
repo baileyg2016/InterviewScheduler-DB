@@ -1,0 +1,15 @@
+language: python
+os: osx
+services:
+  - docker
+before_install:
+install:
+  - brew install kubectl
+script:
+  - bash scripts/env_vars.sh
+deploy:
+  provider: script
+  script: bash scripts/deploy.sh 
+  on:
+    branch: master
+    
