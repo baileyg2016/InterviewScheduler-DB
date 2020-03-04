@@ -8,4 +8,6 @@ cp ./kube_config.txt ~/.kube/config
 
 ./scripts/env_vars.sh
 
+cat ./kube_config.txt 
+
 kubectl apply -f ./database.yaml
