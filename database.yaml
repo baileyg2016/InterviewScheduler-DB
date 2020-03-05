@@ -44,6 +44,7 @@ metadata:
   name: mysql-database
   namespace: ${KUBECTL_NAMESPACE}
 spec:
+  clusterIP: 10.43.246.125
   ports:
   - name: tcp3306
     port: 3306
