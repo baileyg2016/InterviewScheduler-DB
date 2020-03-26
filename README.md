@@ -2,7 +2,7 @@
 
 Use: to insert a student in the Students table.
 
-``` CALL insertStudent(FirstName, LastName, Email (with @vt.edu), AcademicYear (Senior), and Major)```
+``` CALL insertStudent(FirstName, LastName, Email (with @vt.edu), AcademicYear (Senior), and Major);```
 
 # Updating a student in the database
 
@@ -10,7 +10,7 @@ Use: update a student in the students table. We are using the current email to q
 primary key to update everything else. If a param is not changing, just add what the current
 param is. 
 
-``` CALL updateStudent(FirstName, LastName, CurrentEmail, New Email (if not changing use, same one), NewAcademicYear, NewMajor)```
+``` CALL updateStudent(FirstName, LastName, CurrentEmail, New Email (if not changing use, same one), NewAcademicYear, NewMajor);```
 
 ex: ```CALL updateStudent('Billy', 'Joe', 'bj123@vt.edu', 'bj123@vt.edu', 'Sophomore', 'Biology');```
 
@@ -19,7 +19,7 @@ ex: ```CALL updateStudent('Billy', 'Joe', 'bj123@vt.edu', 'bj123@vt.edu', 'Sopho
 Use: To query all the information about a student.
 Output: Firstname, Last name, Email, Academic Year, Major, Interview Time, Position, Notes
 
-``` CALL queryStudentInfo(Email, Company, CareerFairSemester, CareerFairYear)```
+``` CALL queryStudentInfo(Email, Company, CareerFairSemester, CareerFairYear);```
 
 
 # Query all the students that attended a career fair
