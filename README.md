@@ -10,8 +10,8 @@ Use: update a student in the students table. We are using the current email to q
 primary key to update everything else. If a param is not changing, just add what the current
 param is. 
 
-``` CALL updateStudent(FirstName, LastName, CurrentEmail, New Email (if not changing use, same one),
-NewAcademicYear, NewMajor)```
+``` CALL updateStudent(FirstName, LastName, CurrentEmail, New Email (if not changing use, same one), NewAcademicYear, NewMajor)```
+
 ex: ```CALL updateStudent('Billy', 'Joe', 'bj123@vt.edu', 'bj123@vt.edu', 'Sophomore', 'Biology');```
 
 # Query all information about a student
