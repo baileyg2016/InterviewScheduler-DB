@@ -96,7 +96,7 @@ Output: their hashed password
 Use: to query who is interviewing with a specific company
 output: Interviewees First names, last names, emails, academic years, majors, interview times, positions, notes.
 
-``` CALL queryCompanyInterviews(Company Name)```
+``` CALL queryCompanyInterviews(Company Name);```
 
 
 ## Updating a Students notes/comentary
@@ -111,7 +111,7 @@ Use: to update a students commentary. Right now you need to include the current 
 
 Use: to delete a company from a career fair
 
-``` CALL deleteCompanyFromCareerFair(Company, Semester of career fair, Year of career fair)```
+``` CALL deleteCompanyFromCareerFair(Company, Semester of career fair, Year of career fair);```
 
 
 
@@ -121,14 +121,14 @@ Use: to delete a company from a career fair
 Use: to insert a company to a career fair. If not in the system already, you will need to add them
 first. If we need to we can make the procedure more robust and check all of this for you. Just let us know. 
 
-``` CALL insertCompanyToCareerFair(Company, Semester of career fair, year of career fair)```
+``` CALL insertCompanyToCareerFair(Company, Semester of career fair, year of career fair);```
 
 
 ## Adding an interview to the schedule
 
 Use: to add an interview to a companies schedule right now does not check if there is an interview for that time right now. Formatting of the time can change too.
 
-``` CALL addInterviewToSchedule(Company, Email of student, Time of interview (11:00 am), position, Notes, Semester of interview, year of interview)```
+``` CALL addInterviewToSchedule(Company, Email of student, Time of interview (11:00 am), position, Notes, Semester of interview, year of interview);```
 
 
 
@@ -137,14 +137,14 @@ Use: to add an interview to a companies schedule right now does not check if the
 Use: to make a change to an interview in the schedule. If a parameter is not changing, just add it
 how it currently is.
 
-``` CALL updateInterviewSchedule(Company, Email, Interview time, Position, Notes, Semester of interview, Year of interview)```
+``` CALL updateInterviewSchedule(Company, Email, Interview time, Position, Notes, Semester of interview, Year of interview);```
 
 
 ## Adding a Career Fair to the System
 
 Use: to add a career fair to the system
 
-``` CALL addCareerFair(Semester, Year)```
+``` CALL addCareerFair(Semester, Year);```
 
 
 
@@ -152,19 +152,27 @@ Use: to add a career fair to the system
 
 Use: Updating a career fair that is currently in the system
 
-``` CALL updateCareerFair(Current Semester, Current Year, Updated Semester, Updated Year)```
+``` CALL updateCareerFair(Current Semester, Current Year, Updated Semester, Updated Year);```
 
 
+## Updating a Company's Password
+
+Use: To update a company's password
+
+``` CALL updateCompanyPassword(Company Name, New Password); ```
 
 
+## Query a Company's Email
 
+Use: To query a company's Email
 
+``` CALL queryCompanyEmail(Company Name); ```
 
+## Updating a Company's Email
 
+Use: To update a company's email
 
-
-
-
+``` CALL updateCompanyEmail(Company Name, New Email); ```
 
 
 
