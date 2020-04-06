@@ -175,9 +175,18 @@ Use: To update a company's email
 ``` CALL updateCompanyEmail(Company Name, New Email); ```
 
 
+## Add an Admin
+
+Use: To add an admin to the system
+=> checks if the user name is unique
+
+``` CALL insertAdmin(First Name, Last Name, Username, password); ```
 
 
+## Remove an Admin
 
+Use: To remove an admin from the system
 
+``` CALL removeAdmin(Username); ```
 
 
