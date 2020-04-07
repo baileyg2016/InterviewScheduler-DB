@@ -137,7 +137,8 @@ Use: to add an interview to a companies schedule right now does not check if the
 Use: to make a change to an interview in the schedule. If a parameter is not changing, just add it
 how it currently is.
 
-``` CALL updateInterviewSchedule(Company, Email, Interview time, Position, Notes, Semester of interview, Year of interview);```
+``` CALL updateInterviewSchedule(Company, Email, Interview time, Position, Notes, Semester of interview, Year of interview,``` 
+    ```0 if they are interviewing and 1 if they are not);```
 
 
 ## Adding a Career Fair to the System
@@ -187,7 +188,7 @@ Use: To add an admin to the system
 
 Use: To remove an admin from the system
 
-``` CALL removeAdmin(Username); ```
+``` CALL deleteAdmin(Username); ```
 
 
 ## Add a Company
@@ -196,3 +197,28 @@ Use: To add a new Company to the system
 => checks if the Company is already in the DB
 
 ``` CALL insertCompany(Company Name, Password, An email); ```
+
+
+## Update an Admin's Password
+
+Use: To updates an admin's password
+
+``` CALL updateAdminPassword(Username); ```
+
+## Delete a Company
+
+Use: Deletes all company associated records from the Companies, Interviews, CareerFairCompanies
+
+``` CALL deleteCompany(Company Name); ```
+
+## Delete a Student who is Associated with a company
+
+Use: To delete a student from a company's scope, whether they are interviewing or not interviewing with them.
+
+``` CALL deleteStudentFromCompanyInterviewTable(Company Name, student email); ```
+
+## Insert a Student who is interivew with a Company or just associating them with it
+
+Use: to associate a student with a company
+
+``` CALL associateStudentWithCompany(Student Email, Company name, CareerFair Semester, CareerFair Year, Interviewing(1) or not(0));```

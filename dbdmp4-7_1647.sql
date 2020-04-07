@@ -171,6 +171,7 @@ CREATE TABLE `Interviews` (
   `Position` varchar(25) DEFAULT NULL,
   `Notes` varchar(10000) DEFAULT NULL,
   `CareerFairID` int DEFAULT NULL,
+  `IsInterviewing` bit(1) NOT NULL,
   PRIMARY KEY (`pkInterview`),
   UNIQUE KEY `Interviews_pkInterview_uindex` (`pkInterview`),
   KEY `Interviews_Companies_pkCompany_fk` (`CompanyID`),
@@ -188,7 +189,7 @@ CREATE TABLE `Interviews` (
 
 LOCK TABLES `Interviews` WRITE;
 /*!40000 ALTER TABLE `Interviews` DISABLE KEYS */;
-INSERT INTO `Interviews` VALUES (1,2,1,'2:00 pm','Software Engineer','N/A',3),(2,5,1,'11:00 am','Software Engineer','N/A',3),(3,3,3,'12:00 pm','Software Engineer','N/A',7),(4,4,2,'10:00 am','Software Engineer','N/A',7),(5,6,2,'4:00 pm','Software Engineer','N/A',8),(6,2,1,'2:30 pm','Software Engineer Intern','N/A',5),(7,5,1,'11:30 am','Software Engineer Intern','N/A',5),(8,3,3,'12:40 pm','Software Engineer Intern','N/A',5),(9,4,2,'10:30 am','Software Engineer Intern','N/A',5),(10,6,2,'3:30 pm','Software Engineer Intern','N/A',5),(11,2,4,'1:30 pm','Software Engineer','Rockstar',7),(12,5,5,'10:30 am','Software Engineer','Power Thirsty',7),(13,3,4,'2:30 pm','Software Engineer','Beast',7),(14,4,5,'1:30 pm','Software Engineer','Snappa',7),(15,6,3,'3:00 pm','Software Engineer','Yerba Matté',7);
+INSERT INTO `Interviews` VALUES (1,2,1,'2:00 pm','Software Engineer','N/A',3,_binary '\0'),(2,5,1,'11:00 am','Software Engineer','N/A',3,_binary '\0'),(3,3,3,'12:00 pm','Software Engineer','N/A',7,_binary '\0'),(4,4,2,'10:00 am','Software Engineer','N/A',7,_binary '\0'),(5,6,2,'4:00 pm','Software Engineer','N/A',8,_binary '\0'),(6,2,1,'2:30 pm','Software Engineer Intern','N/A',5,_binary '\0'),(7,5,1,'11:30 am','Software Engineer Intern','N/A',5,_binary '\0'),(8,3,3,'12:40 pm','Software Engineer Intern','N/A',5,_binary '\0'),(9,4,2,'10:30 am','Software Engineer Intern','N/A',5,_binary '\0'),(10,6,2,'3:30 pm','Software Engineer Intern','N/A',5,_binary '\0'),(11,2,4,'1:30 pm','Software Engineer','Rockstar',7,_binary '\0'),(12,5,5,'10:30 am','Software Engineer','Power Thirsty',7,_binary '\0'),(13,3,4,'2:30 pm','Software Engineer','Beast',7,_binary '\0'),(14,4,5,'1:30 pm','Software Engineer','Snappa',7,_binary '\0'),(15,6,3,'3:00 pm','Software Engineer','Yerba Matté',7,_binary '\0');
 /*!40000 ALTER TABLE `Interviews` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,6 +309,117 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `associateStudentWithCompany` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `associateStudentWithCompany`(IN StudentEmail varchar(25), IN Company varchar(25), IN pSemester varchar(50),
+                                                           IN pYear varchar(4), IN Interviewing bit)
+BEGIN
+
+	DECLARE sKey int DEFAULT 0;
+	DECLARE cKey int DEFAULT 0;
+	DECLARE cfKey int DEFAULT 0;
+
+	SELECT
+		pkCompany
+	INTO cKey
+	FROM
+		Companies
+	WHERE
+		Name=Company;
+
+	SELECT
+		pkStudent
+	INTO sKey
+	FROM
+		Students
+	WHERE
+		Email=StudentEmail;
+
+	SELECT
+		pkCareerFair
+	INTO cfKey
+	FROM
+		CareerFairs
+	WHERE
+		Semester=pSemester and Year=pYear;
+
+
+	INSERT Interviews (StudentID, CompanyID, CareerFairID, IsInterviewing)
+	VALUES
+		(sKey, cKey, cfKey, Interviewing);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `deleteAdmin` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `deleteAdmin`(IN User varchar(25))
+BEGIN
+
+    DELETE FROM Admins
+        WHERE Username=User;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `deleteCompany` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `deleteCompany`(IN Company varchar(25))
+BEGIN
+    DECLARE cpk int DEFAULT 0;
+
+    SELECT
+        pkCompany
+    INTO cpk
+    FROM Companies;
+
+    DELETE FROM CareerFairCompanies
+    WHERE
+          CompanyID=cpk;
+
+    DELETE FROM Interviews
+    WHERE CompanyID=cpk;
+
+    DELETE FROM Companies
+        WHERE pkCompany=cpk;
+
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `deleteCompanyFromCareerFair` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -353,6 +465,44 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `deleteStudentFromCompanyInterviewTable` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `deleteStudentFromCompanyInterviewTable`(IN Company varchar(25), StudentEmail varchar(25))
+BEGIN
+    DECLARE spk int DEFAULT 0;
+    DECLARE cpk int DEFAULT 0;
+
+    SELECT
+        pkStudent
+    INTO spk
+    FROM
+        Students
+    WHERE Email=StudentEmail;
+
+    SELECT
+        pkCompany
+    INTO cpk
+    FROM
+        Companies
+    WHERE Name=Company;
+
+    DELETE From Interviews
+    WHERE StudentID=spk and CompanyID=cpk;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `insertAdmin` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -363,10 +513,9 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `insertAdmin`(IN First varchar(25),
-    Last varchar(25), User varchar(25), Pass varchar(50),
-    OUT resp varchar(15))
+CREATE DEFINER=`root`@`%` PROCEDURE `insertAdmin`(IN First varchar(25), IN Last varchar(25), IN User varchar(25), IN Pass varchar(50))
 BEGIN
+
     DECLARE u varchar(25) DEFAULT '';
 
     SELECT
@@ -379,9 +528,6 @@ BEGIN
     IF u='' THEN
         INSERT INTO Admins (FirstName, LastName, Username, Password)
         VALUES (First, Last, User, Pass);
-        SET resp='Success';
-    ELSE
-        SET resp = 'Username taken';
     END IF;
 
 END ;;
@@ -400,10 +546,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `insertCompany`(IN Company varchar(25),
-    Pass varchar(50),
-    CompEmail varchar(50),
-    OUT resp varchar(15))
+CREATE DEFINER=`root`@`%` PROCEDURE `insertCompany`(IN Company varchar(25), IN Pass varchar(50), IN CompEmail varchar(50))
 BEGIN
     DECLARE pk int DEFAULT 0;
 
@@ -416,9 +559,6 @@ BEGIN
     IF pk=0 THEN
         INSERT INTO Companies (Name, Password, Email)
         VALUES (Company, Pass, CompEmail);
-        SET resp='Successful';
-    ELSE
-        SET resp='Already Exists';
     END IF;
 
 END ;;
@@ -873,7 +1013,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS deleteAdmin */;
+/*!50003 DROP PROCEDURE IF EXISTS `updateAdminPassword` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -883,11 +1023,12 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `removeAdmin`(IN User varchar(25))
+CREATE DEFINER=`root`@`%` PROCEDURE `updateAdminPassword`(IN User varchar(25), NewPassword varchar(50))
 BEGIN
 
-    DELETE FROM Admins
-        WHERE Username=User;
+    UPDATE Admins
+    SET Password=NewPassword
+    WHERE Username=User;
 
 END ;;
 DELIMITER ;
@@ -985,13 +1126,10 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `updateInterviewInSchedule`(IN Company varchar(25),
-	Email varchar(25),
-	NewTime varchar(50),
-	NewPosition varchar(25),
-	NewNotes varchar(10000),
-	pSemester varchar(50),
-	pYear varchar(4))
+CREATE DEFINER=`root`@`%` PROCEDURE `updateInterviewInSchedule`(IN Company varchar(25), IN StudentEmail varchar(25),
+                                                           IN NewTime varchar(50), IN NewPosition varchar(25),
+                                                           IN NewNotes varchar(10000), IN pSemester varchar(50),
+                                                           IN pYear varchar(4), IN Interview bit)
 BEGIN
 
 	DECLARE sKey int DEFAULT 0;
@@ -1012,7 +1150,7 @@ BEGIN
 	FROM
 		Students
 	WHERE
-		Email=Email;
+		Email=StudentEmail;
 
 	SELECT
 		pkCareerFair
@@ -1025,9 +1163,10 @@ BEGIN
 
 	Update Interviews
 	SET
-		Time=NewTime, Position=NewPosition, Notes=NewNotes, CareerFairID=cfKey
+		Time=NewTime, Position=NewPosition, Notes=NewNotes, CareerFairID=cfKey, IsInterviewing=Interview
 	WHERE
 		StudentID=sKey and CompanyID=cKey;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1122,4 +1261,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-07  0:43:25
+-- Dump completed on 2020-04-07 20:48:03
