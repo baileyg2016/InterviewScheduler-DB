@@ -190,3 +190,9 @@ Use: To remove an admin from the system
 ``` CALL removeAdmin(Username); ```
 
 
+## Add a Company
+
+Use: To add a new Company to the system
+=> checks if the Company is already in the DB
+
+``` CALL insertCompany(Company Name, Password, An email); ```
