@@ -82,21 +82,34 @@ Output: their password. Should be hashed.
 
 ``` CALL queryCompanyPassword(Company Name);```
 
+## Query an admin's info
+
+Use: queries all the info from an admin
+Output: their hashed password
+
+``` CALL queryAdminInfo(Admin username);```
 
 ## Query an admin's password
 
 Use: bad name but queries an admins password
 Output: their hashed password
 
-``` CALL queryAdminInfo(Admin username);```
+``` CALL queryAdminPassword(Admin username);```
 
 
 ## Query a company's interviews
 
-Use: to query who is interviewing with a specific company
+Use: to query who is interviewing with a specific company. 
 output: Interviewees First names, last names, emails, academic years, majors, interview times, positions, notes.
 
 ``` CALL queryCompanyInterviews(Company Name);```
+
+## Query a students associated with a company
+
+Use: to query who are associated with a specific company. 
+output: Interviewees First names, last names, emails, academic years, majors, interview times, positions, notes.
+
+``` CALL queryCompanyStudents(Company Name);```
 
 
 ## Updating a Students notes/comentary
@@ -222,3 +235,9 @@ Use: To delete a student from a company's scope, whether they are interviewing o
 Use: to associate a student with a company
 
 ``` CALL associateStudentWithCompany(Student Email, Company name, CareerFair Semester, CareerFair Year, Interviewing(1) or not(0));```
+
+## Query Students associated with a company. 
+
+Use: to see all the students who are interviewing or not with a company
+
+``` CALL queryCompanyStudents(Company name);```
