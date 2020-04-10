@@ -241,3 +241,15 @@ Use: to associate a student with a company
 Use: to see all the students who are interviewing or not with a company
 
 ``` CALL queryCompanyStudents(Company name);```
+
+## Query Students associated with a company and a specific career fair
+
+Use: to see all the students who are interviewing or not with a company at a specific career fair
+
+``` CALL queryCompanyStudentsAtACareerFair(Company name, Semester ("Spring"), Year ("2020"));```
+
+## Query Students interviewing with a company and a specific career fair
+
+Use: to see all the students who are interviewing with a company at a specific career fair
+
+``` CALL queryCompanyInterviewsAtACareerFair(Company name, Semester ("Spring"), Year ("2020"));```
