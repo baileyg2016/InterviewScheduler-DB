@@ -260,3 +260,15 @@ Use: to see all the students who are interviewing with a company at a specific c
 Use: to see all the companies that attended a career fair
 
 ``` CALL queryCompaniesAtCareerFair(Semester ("Spring"), Year ("2020"));```
+
+## Query the current career fair
+
+Use: to see the semester and year of the current career fair
+
+``` CALL queryCurrentCareerFair();```
+
+## Set the current career fair
+
+Use: to set the semester and year of the current career fair
+
+``` CALL updateCurrentCareerFair(Semester ("Spring"), Year ("2020"));```
