@@ -272,3 +272,9 @@ Use: to see the semester and year of the current career fair
 Use: to set the semester and year of the current career fair
 
 ``` CALL updateCurrentCareerFair(Semester ("Spring"), Year ("2020"));```
+
+## Query all company info for a specific student at the current career fair  
+
+Use: to query all the information for a student associated or interviewing with a company
+
+``` CALL queryStudentInterviewInfoFromCompany(email of the student, Name of the company, Semester ("Spring"), Year ("2020"));```
