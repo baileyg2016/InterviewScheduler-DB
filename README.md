@@ -228,7 +228,7 @@ Use: Deletes all company associated records from the Companies, Interviews, Care
 
 Use: To delete a student from a company's scope, whether they are interviewing or not interviewing with them.
 
-``` CALL deleteStudentFromCompanyInterviewTable(Company Name, student email); ```
+``` CALL deleteStudentFromCompanyInterviewTable(Company Name, student email, career fair semester, career fair year); ```
 
 ## Insert a Student who is interivew with a Company or just associating them with it
 
