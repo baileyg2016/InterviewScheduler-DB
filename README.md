@@ -188,6 +188,11 @@ Use: To update a company's email
 
 ``` CALL updateCompanyEmail(Company Name, New Email); ```
 
+## Updating a Company's Email
+
+Use: To update a company's email
+
+``` CALL updateCompanyName(Old Name, New Name); ```
 
 ## Add an Admin
 
