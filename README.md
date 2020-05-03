@@ -209,7 +209,7 @@ Use: To remove an admin from the system
 ``` CALL deleteAdmin(Username); ```
 
 
-## Add a Company
+## Add a Company (Is actually an upsert)
 
 Use: To add a new Company to the system
 => checks if the Company is already in the DB
