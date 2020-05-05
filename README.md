@@ -262,7 +262,7 @@ Use: to see all the students who are interviewing with a company at a specific c
 
 ## Query all the companies at a specific career fair
 
-Use: to see all the companies that attended a career fair
+Use: to see all the companies that attended a career fair and how many students they have associated with them/interviewing
 
 ``` CALL queryCompaniesAtCareerFair(Semester ("Spring"), Year ("2020"));```
 
@@ -283,3 +283,4 @@ Use: to set the semester and year of the current career fair
 Use: to query all the information for a student associated or interviewing with a company
 
 ``` CALL queryStudentInterviewInfoFromCompany(email of the student, Name of the company, Semester ("Spring"), Year ("2020"));```
+
