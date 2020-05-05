@@ -239,7 +239,7 @@ Use: To delete a student from a company's scope, whether they are interviewing o
 
 Use: to associate a student with a company
 
-``` CALL associateStudentWithCompany(Student Email, Company name, CareerFair Semester, CareerFair Year, Interviewing(1) or not(0));```
+``` CALL associateStudentWithCompany(Student Email, Company name, CareerFair Semester, CareerFair Year, Interviewing(1) or not(0), Position (empty string if nothing), Notes (empty string if nothing));```
 
 ## Query Students associated with a company. 
 
