@@ -1,3 +1,14 @@
+# Here is the password to the db
+
+``` username: root ```
+``` password: yellowphone-db ```
+
+
+
+
+
+
+
 # A List of All the Store Procedures
 
 
