@@ -2,7 +2,7 @@
 
 ``` username: root ```
 ``` password: yellowphone-db ```
-
+``` database name: test ```
 
 
 
